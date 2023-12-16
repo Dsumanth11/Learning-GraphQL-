@@ -1,10 +1,9 @@
 const express = require("express")
 const {graphqlHTTP} = require('express-graphql')
 const {buildSchema} = require('graphql')
-const bodyParser= require('body-parser')
-const app = express();
 
-app.use(bodyParser.json())
+const app = express();
+app.use(express.json())
 
 app.use('/graphql',graphqlHTTP({
     schema:buildSchema(`
