@@ -22,11 +22,13 @@ app.use('/graphql',graphqlHTTP({
             description: String!
             price: Float!
             date: String!
+            creator:User!
         }
         type User{
             _id:ID!
             email:String!
             password:String
+            createdEvent:[Event!]
         }
         input EventInput{
             title : String!
@@ -40,6 +42,7 @@ app.use('/graphql',graphqlHTTP({
         }
         type RootQuery {
             events : [Event!]!
+            users:[User!]!
         }
         type RootMutation {
             createEvent(eventInput:EventInput): Event
@@ -56,6 +59,10 @@ app.use('/graphql',graphqlHTTP({
             const Allevents=await Event.find()
             console.log(Allevents)
             return Allevents
+        },
+        users:async()=>{
+            const AllUsers= await User.find()
+            return AllUsers
         },
         createEvent:async(args)=>{
             let newEventResult;
